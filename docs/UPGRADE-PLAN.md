@@ -17,7 +17,7 @@ written) and the UI is still a placeholder.
 - P2: Add a Linux CI job that runs `swift test --filter JsonconverterCoreTests` after
   making the UI target conditional, to keep the core portable.
 
-## Done in this pass
+## Done in this pass (pass 1)
 
 - Split the package into `JsonconverterCore` (Foundation-only logic), `JsonconverterUI` (existing
   SwiftUI shell) and `JsonconverterCoreTests` (8 XCTest cases).
@@ -25,3 +25,12 @@ written) and the UI is still a placeholder.
 - CI: removed `|| echo` / `|| true` so build and test failures are visible.
 - README now states what is verified and what is not.
 - New Swift sources were syntax-checked with tree-sitter-swift only.
+
+## Done in this pass (pass 2)
+
+- Static compile review only (no Swift toolchain in this environment): read every
+  source and test file for type/API errors (access levels across modules, tuple
+  labels, closure destructuring, result-builder declarations, macOS 14/iOS 17
+  API availability, `@testable` usage). No compile errors found; nothing changed.
+  All files also parse cleanly with tree-sitter-swift.
+- The P0 item (confirm the macOS `swift build` / `swift test` CI job is green) stays open.
