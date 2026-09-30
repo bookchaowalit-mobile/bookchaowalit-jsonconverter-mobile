@@ -5,9 +5,13 @@ let package = Package(
     name: "Jsonconverter",
     platforms: [.iOS(.v17), .macOS(.v14)],
     products: [
-        .library(name: "Jsonconverter", targets: ["Jsonconverter"])
+        .library(name: "JsonconverterCore", targets: ["JsonconverterCore"]),
+        .library(name: "JsonconverterUI", targets: ["JsonconverterUI"]),
     ],
     targets: [
-        .target(name: "Jsonconverter", path: "Sources")
+        // Foundation-only domain logic; no SwiftUI so it also builds on Linux.
+        .target(name: "JsonconverterCore", path: "Sources/JsonconverterCore"),
+        .target(name: "JsonconverterUI", dependencies: ["JsonconverterCore"], path: "Sources/JsonconverterUI"),
+        .testTarget(name: "JsonconverterCoreTests", dependencies: ["JsonconverterCore"], path: "Tests/JsonconverterCoreTests"),
     ]
 )

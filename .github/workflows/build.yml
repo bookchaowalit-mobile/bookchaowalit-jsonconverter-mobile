@@ -6,13 +6,16 @@ on:
   pull_request:
     branches: [main]
 
+permissions:
+  contents: read
+
 jobs:
   build:
-    name: Build & Test
+    name: Build & Test (SwiftPM)
     runs-on: macos-14
     steps:
       - uses: actions/checkout@v4
       - name: Build
-        run: swift build || echo "Requires Xcode 15+"
+        run: swift build
       - name: Test
-        run: swift test || true
+        run: swift test
